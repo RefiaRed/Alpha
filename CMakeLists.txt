@@ -14,6 +14,7 @@ add_executable(alpha
     src/scene.cpp
     src/sceneHandler.cpp
     src/spriteObject.cpp
+    src/textObject.cpp
     # include/placeholder.hpp
 )
 target_include_directories(alpha PRIVATE "include")
