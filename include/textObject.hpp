@@ -11,6 +11,7 @@ class TextObject : public GameObject {
         sf::Text text;
     public:
         TextObject(std::string identifier);
+        TextObject(const TextObject& other);
         ~TextObject();
         
     public:

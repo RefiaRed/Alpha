@@ -23,8 +23,9 @@ int main() {
     scene2.addGameObject(sprite2);
 
     TextObject testingtext("testtext");
-    //scene2.addGameObject(testingtext); <-insta closes window when uncommented
-
+    //insta closes window when uncommented
+    scene2.addGameObject(testingtext); 
+    //
     
 
 

@@ -2,7 +2,18 @@
 
 TextObject::TextObject(std::string identifier) : GameObject(identifier)
 {
-    if(font.loadFromFile("assets/rainyhearts.ttf"))
+    if(!font.loadFromFile("assets/rainyhearts.ttf"))
+        throw ("ERROR! Font didn't load\n");
+
+    text.setFont(font);
+    text.setCharacterSize(24);
+    text.setString("Testing, testing, testing \n");
+}
+
+TextObject::TextObject(const TextObject& other) : 
+    GameObject(other.getIdentifier()) 
+{
+     if(!font.loadFromFile("assets/rainyhearts.ttf"))
         throw ("ERROR! Font didn't load\n");
 
     text.setFont(font);
