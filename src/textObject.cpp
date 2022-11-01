@@ -44,3 +44,4 @@ void TextObject::setText(sf::String newtext) {
     text.setString(newtext);
 }
 
+
