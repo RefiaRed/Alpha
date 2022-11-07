@@ -1,11 +1,14 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include <scene.hpp>
 #include <spriteObject.hpp>
 #include <sceneHandler.hpp>
 #include <textObject.hpp>
 #include <string>
-//#include <button.hpp>
+#include <button.hpp>
+
+sf::Vector2f mousepos;
 
 
 
@@ -15,16 +18,28 @@ int main() {
 
     Scene scene1("scene01");
 
+    TextObject here("here");
+    here.setPosition(sf::Vector2f(10.0f, 10.0f));
+    here.setCharSize(30);
+    here.setText("O");
+    scene1.addGameObject(here);
+
+
     
     TextObject exittext("exittext");
     exittext.setPosition(sf::Vector2f(window.getSize().x /2, window.getSize().y - 100));
     exittext.setText("Esc to exit");
     scene1.addGameObject(exittext);
-    TextObject trialButton("trialbutton");
-    trialButton.setPosition(sf::Vector2f(window.getSize().x -300, 10));
-    trialButton.setText("Click Here");
+    Button trialButton("trialbutton", 100.0f, 50.0f, false);
+    trialButton.setPosition(sf::Vector2f(window.getSize().x /2, window.getSize().y / 2));
     trialButton.setCharSize(30);
+    trialButton.setText("Click Here");
     scene1.addGameObject(trialButton);
+
+    Button trialButton2("trialbutton2", 200.0f, 100.0f, true);
+    trialButton2.setPosition(sf::Vector2f(10,10));
+    trialButton2.setText("Trial Button 2");
+    scene1.addGameObject(trialButton2);
 
     Scene scene2("scene02");
 
@@ -53,6 +68,7 @@ int main() {
 
     int counter = 0;
     while (window.isOpen()) {
+        mousepos= (sf::Vector2f) sf::Mouse::getPosition();
         
         //check for Events
         sf::Event event;
@@ -73,11 +89,24 @@ int main() {
                 if (event.key.code == sf::Keyboard::Escape){
                     window.close();
                 }
-            }
             
-            
+                if (trialButton2.isClicked()){
+                    window.close();
+                }
+                
+                if (trialButton.isClicked()){
+                    window.close();
+                }
+
+                
+                
+            }   
+            here.setPosition((sf::Vector2f) sf::Mouse::getPosition(window));
 
         }
+        
+        
+
         window.clear();
         handler.update();
         handler.render(window);

@@ -5,6 +5,7 @@
 class GameObject {
     private: 
         const std::string identifier;
+
     public:
         GameObject(std::string identifier);
         GameObject(const GameObject& other);

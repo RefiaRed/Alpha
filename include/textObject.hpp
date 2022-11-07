@@ -9,7 +9,6 @@ class TextObject : public GameObject {
     private:
         sf::Font font;
         sf::Text text;
-        enum ButtonState {idle, hover, active};
     public:
         TextObject(std::string identifier);
         TextObject(const TextObject& other);
