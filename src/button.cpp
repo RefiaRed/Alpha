@@ -32,20 +32,17 @@ Button::Button(const Button& other) :
 Button::~Button() { };
 
 void Button::update(){
-    // if (isHovering()){
-    //     printf("Get fucked nerd");
-    //     text.setFillColor(sf::Color::Cyan);
-    //     rect.setFillColor(boxColorHov);
-    // }
-    // else{
-    //     text.setFillColor(sf::Color::White);
-    //     rect.setFillColor(boxColor);
-        
-    // }
+    if (isHovering()){
+         text.setFillColor(sf::Color::Cyan);
+         rect.setFillColor(boxColorHov);
+     }
+     else{
+         text.setFillColor(sf::Color::White);
+        rect.setFillColor(boxColor);   
+     }
 
-    // text.getString();
+     text.getString();
 
-//    printf("Mouse Position: (%d,%d) | Rectangle Coordinates: (%f,%f)\n", sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y, rect.getGlobalBounds().getPosition().x, rect.getGlobalBounds().getPosition().y);
 }
 
 void Button::render(sf::RenderWindow& window) {
@@ -64,44 +61,10 @@ void Button::setText(sf::String newtext) {
 
 
 bool Button::isHovering() {
-    // bool b;
-    // if (isActive) {
-    //     if(
-    //     inHitbox(sf::Mouse::getPosition())
         return rect.getGlobalBounds().contains((sf::Vector2f) sf::Mouse::getPosition(*this->window));
-    //     )
-    //         b = true;
-    //     else
-    //         b = false;
-    // }
-    // else
-    //     b = false;
-
-    // return b;
-    // printf("Hovering over a button my dude\n");
-    // return (isActive) ? inHitbox(sf::Mouse::getPosition()) : false;
 }
 
 bool Button::isClicked() {
     return isHovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left);
 }
 
-// bool Button::inHitbox(sf::Vector2i point) {
-//     //I know GetGlobalBounds exists but it just didn't work for me correctly, so Idk
-//     //Positions are still scuffed but manually moved underneath the window
-    
-//     // bool b;
-    
-//     //This didn't work:
-//     // int x1 = rect.getPosition().x * rect.getPosition().x * 2;
-//     // int x2 = (rect.getPosition().x * rect.getSize().x) / 5;
-//     // int y1 = rect.getPosition().y * rect.getPosition().y * 2;
-//     // int y2 = ((rect.getPosition().y * rect.getSize().y) *2 ) /6;
-
-//     int x1 = rect.getPosition().x + window.getPosition().x;
-//     int x2 = x1 + rect.getSize().x;
-//     int y1 = rect.getPosition().y * rect.getPosition().y + window.getPosition().y - 10;
-//     int y2 = y1 + rect.getSize().y ;
-    
-//     return (x1 <= point.x && y1 <= point.y && x2 >= point.x && y2 >= point.y) ? true : false;
-// }
