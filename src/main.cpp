@@ -20,24 +20,23 @@ int main() {
 
     TextObject here("here");
     here.setPosition(sf::Vector2f(10.0f, 10.0f));
-    here.setCharSize(30);
-    here.setText("O");
+    here.setText("O", 30);
     scene1.addGameObject(here);
-    
+
     TextObject exittext("exittext");
     exittext.setPosition(sf::Vector2f(window.getSize().x /2, window.getSize().y - 100));
-    exittext.setText("Esc to exit");
+    exittext.setText("Esc to exit", 25);
     scene1.addGameObject(exittext);
-    Button trialButton("trialbutton", &window, 200.0f, 100.0f, true);
-    trialButton.setPosition(sf::Vector2f(300, 300));
-    trialButton.setCharSize(30);
-    trialButton.setText("Click Here");
-    scene1.addGameObject(trialButton);
 
-    Button trialButton2("trialbutton2", &window, 200.0f, 100.0f, true);
-    trialButton2.setPosition(sf::Vector2f(10,10));
-    trialButton2.setText("Trial Button 2");
-    scene1.addGameObject(trialButton2);
+    Button trialButton("trialbutton", &window, 200.0f, 100.0f, true);
+    //trialButton.setPosition(sf::Vector2f(300, 300));
+    //trialButton.setText("Click Here", 30);
+    //scene1.addGameObject(trialButton);
+
+    //Button trialButton2("trialbutton2", &window, 200.0f, 100.0f, true);
+    //trialButton2.setPosition(sf::Vector2f(10,10));
+    //trialButton2.setText("Trial Button 2",);
+    //scene1.addGameObject(trialButton2);
 
 
     //Start scene 2 (but it's useless)
@@ -94,13 +93,13 @@ int main() {
             }   
             here.setPosition((sf::Vector2f) sf::Mouse::getPosition(window));
 
-            if (trialButton2.isClicked()){
-                    window.close();
-            }
+            //if (trialButton2.isClicked()){
+            //        window.close();
+            //}
                 
-            if (trialButton.isClicked()){
-                    window.close();
-            }
+            //if (trialButton.isClicked()){
+            //        window.close();
+            //}
 
         }
         

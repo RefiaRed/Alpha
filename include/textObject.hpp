@@ -20,7 +20,8 @@ class TextObject : public GameObject {
         
         void setPosition(sf::Vector2f position);
         void setCharSize(int size);
-        void setText(sf::String newtext);
+        void setText(sf::String newtext, int size);
+        void setColor(sf::Color color);
         
 };
 

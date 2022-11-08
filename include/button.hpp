@@ -13,7 +13,8 @@ class Button : public TextObject {
     private:
         sf::RectangleShape rect;
         sf::Font font;
-        sf::Text text;
+        TextObject text;
+        sf::FloatRect bounds;
         sf::Color boxColor =  sf::Color(255, 0, 255, 100);
         sf::Color boxColorHov = sf::Color(255, 0, 255, 200);
         sf::Vector2f position;
@@ -35,7 +36,6 @@ class Button : public TextObject {
         void render(sf::RenderWindow& window) override;
 
         void setPosition(sf::Vector2f position);
-        void setText(sf::String newtext);
         bool isHovering();
         bool isClicked();
         bool inHitbox(sf::Vector2i point);

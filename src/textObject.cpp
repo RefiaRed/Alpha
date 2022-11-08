@@ -7,7 +7,7 @@ TextObject::TextObject(std::string identifier) : GameObject(identifier)
 
     text.setFont(font);
     text.setCharacterSize(24);
-    text.setString("Testing, testing, testing \n");
+    text.setString("Testing, testing, testing");
 }
 
 TextObject::TextObject(const TextObject& other) : 
@@ -18,7 +18,7 @@ TextObject::TextObject(const TextObject& other) :
 
     text.setFont(font);
     text.setCharacterSize(24);
-    text.setString("Testing, testing, testing \n");
+    text.setString("Testing, testing, testing");
 }
 
 
@@ -40,8 +40,12 @@ void TextObject::setCharSize(int size) {
     text.setCharacterSize(size);
 }
 
-void TextObject::setText(sf::String newtext) {
+void TextObject::setText(sf::String newtext, int size) {
     text.setString(newtext);
+    text.setCharacterSize(size);
 }
 
+void TextObject::setColor(sf::Color color){
+    text.setFillColor(color);
+}
 
