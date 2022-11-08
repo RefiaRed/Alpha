@@ -4,7 +4,7 @@
 
 
 
-Button::Button(std::string identifier, float width, float height, bool active) : TextObject(identifier)
+Button::Button(std::string identifier, sf::RenderWindow& window, float width, float height, bool active) : TextObject(identifier)
 {
     
     isActive = active;
@@ -48,6 +48,7 @@ void Button::update(){
         rect.setFillColor(boxColor);
         
     }
+    text.getString();
 }
 
 void Button::render(sf::RenderWindow& window) {
@@ -58,18 +59,23 @@ void Button::render(sf::RenderWindow& window) {
 void Button::setPosition(sf::Vector2f position) {
     rect.setPosition(position);
     text.setPosition((position.x + (rect.getSize().x/2)),(position.y + (rect.getSize().y* 0.2 )));
-}
+}        
 
 void Button::setText(sf::String newtext) {
     text.setString(newtext);
 }
 
+
 bool Button::isHovering() {
     bool b;
     if (isActive) {
-        inHitbox(sf::Mouse::getPosition());
-        //rect.getGlobalBounds().contains((sf::Vector2f) sf::Mouse::getPosition(&window));
-         b =true;
+        if(
+        inHitbox(sf::Mouse::getPosition())
+        //rect.getGlobalBounds().contains((sf::Vector2f) sf::Mouse::getPosition(window))
+        )
+            b = true;
+        else
+            b = false;
     }
     else
         b = false;
@@ -83,21 +89,31 @@ bool Button::isClicked() {
 }
 
 bool Button::inHitbox(sf::Vector2i point) {
-    //I know GetGlobalBounds exists but it just didn't work for me correctly, so I tried building my own
+    //I know GetGlobalBounds exists but it just didn't work for me correctly, so Idk
+    //Positions are still scuffed but manually moved underneath the window
     
     bool b;
     
-    int x1 = rect.getPosition().x;
-    int x2 = rect.getPosition().x + rect.getSize().x;
-    int y1 = rect.getPosition().y;
-    int y2 = rect.getPosition().y + rect.getSize().y;
+    //This didn't work:
+    //int x1 = rect.getPosition().x * rect.getPosition().x * 2;
+    //int x2 = (rect.getPosition().x * rect.getSize().x) / 5;
+    //int y1 = rect.getPosition().y * rect.getPosition().y * 2;
+    //int y2 = ((rect.getPosition().y * rect.getSize().y) *2 ) /6;
 
-    if(x1 <= point.x <= x2){
-        if(y1 <= point.y <= y2)
-         b = true;
-    }
-    else {
+    int x1 = rect.getPosition().x + window.getPosition().x;
+    int x2 = x1 + rect.getSize().x;
+    int y1 = rect.getPosition().y * rect.getPosition().y + window.getPosition().y - 10;
+    int y2 = y1 + rect.getSize().y ;
+
+    if(x1 <= point.x)
+        if(y1 <= point.y)
+            if(x2 >= point.x)
+                if(y2 >= point.y)
+                    b = true;
+         
+    
+    else 
          b= false;
-    }
+    
     return b;
 }

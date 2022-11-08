@@ -17,6 +17,7 @@ class Button : public TextObject {
         sf::Color boxColor =  sf::Color(255, 0, 255, 100);
         sf::Color boxColorHov = sf::Color(255, 0, 255, 200);
         sf::Vector2f position;
+        sf::RenderWindow window;
         
     
         float width;
@@ -25,7 +26,7 @@ class Button : public TextObject {
         bool isActive = true;
         
     public:
-        Button(std::string identifier, float width, float height, bool active);
+        Button(std::string identifier, sf::RenderWindow& window, float width, float height, bool active);
         Button(const Button& other);
         ~Button();
         
