@@ -18,6 +18,10 @@ add_executable(alpha
     src/button.cpp
     # include/placeholder.hpp
 )
+
+# Copy assets folder to build directory
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+
 target_include_directories(alpha PRIVATE "include")
 target_include_directories(alpha PRIVATE "assets")
 target_link_libraries(alpha PRIVATE sfml-graphics)
