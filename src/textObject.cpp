@@ -51,4 +51,8 @@ sf::String TextObject::getText() const {
     return text.getString();
 }
 
+const sf::Vector2f TextObject::getPosition() {
+    return sf::Vector2f(text.getPosition());
+}
+
 

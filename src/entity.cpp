@@ -4,7 +4,7 @@ Entity::Entity(std::string identifier, int maxHp, int maxTp, int atk, int def)
         : GameObject(identifier) {
     this->maxHp = maxHp;
     this->hp = maxHp;
-    this->tp = tp;
+    this->tp = maxTp;
     this->atk = atk;
     this->def = def;
 

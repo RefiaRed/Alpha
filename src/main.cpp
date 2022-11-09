@@ -56,13 +56,38 @@ int main() {
         scene2.addGameObject(sprite2);
 
 
-        Entity player("player",20,20,6,5);
-        Entity enemy("enemy",20,10,6,5);
+        Entity player("player",(distHigh(rd) + 10),distHigh(rd),distLow(rd),distLow(rd));
         scene2.addGameObject(player);
+
+        Entity enemy("enemy",(distHigh(rd) + 10),distHigh(rd),distLow(rd),distLow(rd));
+
         scene2.addGameObject(enemy);
 
+        //TextObject playerHp("playerHp", "PLAYER HP:"+ std::to_string(player.getHp()));
+        //playerHp.setPosition(sf::Vector2f(window.getSize().x, 10.0f));
+        //scene2.addGameObject(playerHp);
+
+        //TextObject playerTp("playerTp", "PLAYER TP:"+ std::to_string(player.getTp()));
+        //playerHp.setPosition(sf::Vector2f(1000.0f, 40.0f ));
+        //scene2.addGameObject(playerTp);
+
+        TextObject enemyHp("enemyHp", "ENEMY HP:"+ std::to_string(enemy.getHp()));
+        enemyHp.setPosition(sf::Vector2f(10.0f, 10.0f));
+        scene2.addGameObject(enemyHp);
+
+        TextObject playerTp("playerTp", "PLAYER TP:"+ std::to_string(player.getTp()));
+        playerTp.setPosition(sf::Vector2f(window.getSize().x / 2, 40.0f));
+        scene2.addGameObject(playerTp);
+
         TextObject playerHp("playerHp", "PLAYER HP:"+ std::to_string(player.getHp()));
+        playerHp.setPosition(sf::Vector2f(window.getSize().x / 2, 10.0f));
         scene2.addGameObject(playerHp);
+
+
+        TextObject enemyTp("enemyTp", "ENEMY TP:"+ std::to_string(enemy.getTp()));
+        enemyTp.setPosition(sf::Vector2f(10.0f, 40.0f));
+        scene2.addGameObject(enemyTp);
+
 
         TextObject infoBox("Infobox", "Lorem ipsum dolor sit amet.");
         infoBox.setPosition(sf::Vector2f(window.getSize().x / 4, (window.getSize().y -10.0f)/ 8 * 7));
@@ -98,7 +123,14 @@ int main() {
                 if (event.key.code == sf::Keyboard::A){
                     enemy.attack(player, distLow(rd));
                     playerHp.setText("PLAYER HP:"+ std::to_string(player.getHp()),defaultCharSize);
+
                 }
+                if (event.key.code == sf::Keyboard::D){
+                    player.heal(enemy, distHigh(rd));
+                    playerHp.setText("PLAYER HP:"+ std::to_string(player.getHp()),defaultCharSize);
+                    playerTp.setText("PLAYER TP:"+ std::to_string(player.getTp()),defaultCharSize);
+                }
+
                 if (event.key.code == sf::Keyboard::S){
                     player.getStats();
                 }

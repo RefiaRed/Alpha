@@ -5,7 +5,6 @@
 class Entity : public GameObject {
 private:
     int maxHp;
-    int maxTp;
     int atk;
     int def;
     int hp;

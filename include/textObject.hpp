@@ -21,6 +21,7 @@ class TextObject : public GameObject {
         virtual void setPosition(sf::Vector2f position);
         void setText(sf::String newText, int size);
         void setColor(sf::Color color);
+        const sf::Vector2f getPosition();
         sf::String getText() const;
         
 };
