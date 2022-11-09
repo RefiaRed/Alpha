@@ -5,7 +5,7 @@ GameObject::GameObject(std::string identifier) : identifier(identifier) { }
  
 GameObject::GameObject(const GameObject& other) : identifier(other.getIdentifier()) { }
 
-GameObject::~GameObject() { }
+GameObject::~GameObject() = default;
 
 std::string GameObject::getIdentifier() const {
     return this->identifier;

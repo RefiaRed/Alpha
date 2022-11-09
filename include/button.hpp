@@ -12,35 +12,33 @@
 class Button : public TextObject {
     private:
         sf::RectangleShape rect;
-        sf::Font font;
-        TextObject text;
         sf::FloatRect bounds;
+        sf::Font font;
+        sf::Text text;
+        sf::String buttonString;
         sf::Color boxColor =  sf::Color(255, 0, 255, 100);
         sf::Color boxColorHov = sf::Color(255, 0, 255, 200);
-        sf::Vector2f position;
-        sf::RenderWindow* window;
-        
+        sf::RenderWindow* window{};
     
-        float width;
-        float height;
+        float width{};
+        float height{};
 
         bool isActive = true;
         
     public:
-        Button(std::string identifier, sf::RenderWindow* window, float width, float height, bool active);
+        Button(std::string identifier, sf::String buttonString, sf::RenderWindow* window, float width, float height, bool active);
         Button(const Button& other);
-        ~Button();
+        ~Button()override;
         
     public:
         void update() override;
         void render(sf::RenderWindow& window) override;
 
-        void setPosition(sf::Vector2f position);
+        void setPosition(sf::Vector2f position) override;
         bool isHovering();
         bool isClicked();
-        bool inHitbox(sf::Vector2i point);
 
-        
+
 
 };
 

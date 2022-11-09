@@ -2791,7 +2791,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/usr/local//pkgconfig"
+			"value" : "/usr/local/pkgconfig"
 		},
 		{
 			"name" : "SFML_SOURCE_DIR",

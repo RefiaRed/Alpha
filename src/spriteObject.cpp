@@ -14,7 +14,7 @@ SpriteObject::SpriteObject(const SpriteObject& other) :
     this->sprite.setTexture(this->texture);
 }
 
-SpriteObject::~SpriteObject() { }
+SpriteObject::~SpriteObject() = default;
 
 void SpriteObject::update() {
 

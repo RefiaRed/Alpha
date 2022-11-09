@@ -16,9 +16,9 @@ add_executable(alpha
     src/spriteObject.cpp
     src/textObject.cpp
     src/button.cpp
-    # include/placeholder.hpp
-)
 
+
+        include/entity.hpp src/entity.cpp)
 # Copy assets folder to build directory
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 

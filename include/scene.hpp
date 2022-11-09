@@ -13,11 +13,13 @@ class Scene {
     public:
         Scene(std::string identifier);
         ~Scene();
-
     public:
-        void addGameObject(GameObject& object);
-        void update();
-        void render(sf::RenderWindow& window);
-        std::string getIdentifier() const;
+    virtual void addGameObject(GameObject& object);
+
+    virtual void update();
+
+    virtual void render(sf::RenderWindow& window);
+
+    virtual std::string getIdentifier() const;
 };
 

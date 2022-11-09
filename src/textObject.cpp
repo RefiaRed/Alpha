@@ -1,28 +1,27 @@
 #include <textObject.hpp>
 
-TextObject::TextObject(std::string identifier) : GameObject(identifier)
+TextObject::TextObject(std::string identifier, sf::String textString) : GameObject(identifier)
 {
-    if(!font.loadFromFile("assets/rainyhearts.ttf"))
+    if(!textFont.loadFromFile("assets/rainyhearts.ttf"))
         std::printf("ERROR! Font didn't load\n");
 
-    text.setFont(font);
-    text.setCharacterSize(24);
-    text.setString("Testing, testing, testing");
+    text.setFont(textFont);
+    text.setCharacterSize(25);
+    text.setString(textString);
 }
 
 TextObject::TextObject(const TextObject& other) : 
     GameObject(other.getIdentifier()) 
 {
-     if(!font.loadFromFile("assets/rainyhearts.ttf"))
+     if(!textFont.loadFromFile("assets/rainyhearts.ttf"))
         std::printf("ERROR! Font didn't load\n");
 
-    text.setFont(font);
-    text.setCharacterSize(24);
-    text.setString("Testing, testing, testing");
+    text.setFont(textFont);
+    text.setCharacterSize(25);
 }
 
 
-TextObject::~TextObject() { }
+TextObject::~TextObject() = default;
 
 void TextObject::update() {
 
@@ -36,7 +35,10 @@ void TextObject::setPosition(sf::Vector2f position) {
     text.setPosition(position);
 }
 
-void TextObject::setText(sf::String& newText, int size) {
+
+
+
+void TextObject::setText(sf::String newText, int size) {
     text.setString(newText);
     text.setCharacterSize(size);
 }
@@ -44,4 +46,9 @@ void TextObject::setText(sf::String& newText, int size) {
 void TextObject::setColor(sf::Color color){
     text.setFillColor(color);
 }
+
+sf::String TextObject::getText() const {
+    return text.getString();
+}
+
 

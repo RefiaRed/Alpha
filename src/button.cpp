@@ -1,48 +1,55 @@
 #include "button.hpp"
 
-Button::Button(std::string identifier, sf::RenderWindow* window, float width, float height, bool active) : TextObject(identifier), text(text)
+Button::Button(std::string identifier,sf::String buttonString, sf::RenderWindow* window, float width, float height, bool active) : TextObject(identifier, buttonString)
 {
     isActive = active;
 
     this->window = window;
-    this->font = font;
-    
+    this->buttonString = buttonString;
+    if(!font.loadFromFile("assets/rainyhearts.ttf"))
+        std::printf("ERROR! Font didn't load\n");
+
 
     //Box
     rect.setSize(sf::Vector2f(width,height));
     rect.setFillColor(boxColor);
     rect.setPosition(0,0);
+    bounds =  rect.getGlobalBounds();
 
     
-    //Buttontext
-    text.setText(".", 25);
+    //Button text
+    text.setFont(font);
+    text.setString(buttonString);
     text.setPosition(sf::Vector2f(0,0));
-
+    text.setOrigin(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
 }
 
 Button::Button(const Button& other) : 
-    TextObject(other), text(text)
-{   
-    this->window = window;
-    this->font = font;
+    TextObject(other)
+{   if(!font.loadFromFile("assets/rainyhearts.ttf"))
+        std::printf("ERROR! Font didn't load\n");
 
     //Box
     rect.setSize(sf::Vector2f(width,height));
     rect.setFillColor(boxColor);
+    bounds =  rect.getGlobalBounds();
 
-    //Buttontext
+    //Button text
+    text.setFont(font);
+    text.setString("default button text");
+    text.setPosition(sf::Vector2f(0,0));
 
 }
 
-Button::~Button() { };
+Button::~Button() = default;
 
 void Button::update(){
     if (isHovering()){
-         text.setColor(sf::Color::Cyan);
+         text.setFillColor(sf::Color::Cyan);
          rect.setFillColor(boxColorHov);
     }
     else{
-         text.setColor(sf::Color::White);
+         text.setFillColor(sf::Color::White);
         rect.setFillColor(boxColor);   
     }
 
@@ -50,22 +57,22 @@ void Button::update(){
 
 }
 
-void Button::render(sf::RenderWindow& window) {
-    window.draw(rect);
-    TextObject::render(window);
-    //window.draw(text);
+void Button::render(sf::RenderWindow& renderWindow) {
+    renderWindow.draw(rect);
+    renderWindow.draw(text);
 }
 
 void Button::setPosition(sf::Vector2f position) {
     rect.setPosition(position);
-    text.setPosition(position);
+    bounds =  rect.getGlobalBounds();
+    text.setPosition(position.x + (bounds.width) /1.5, position.y + bounds.height / 1.3);
 }        
 
 
 
 
 bool Button::isHovering() {
-        return rect.getGlobalBounds().contains((sf::Vector2f) sf::Mouse::getPosition(*this->window));
+        return bounds.contains((sf::Vector2f) sf::Mouse::getPosition(*window));
 }
 
 bool Button::isClicked() {

@@ -7,20 +7,21 @@
 
 class TextObject : public GameObject {
     private:
-        sf::Font font;
+        sf::Font textFont;
         sf::Text text;
     public:
-        TextObject(std::string identifier);
+        TextObject(std::string identifier, sf::String textString);
         TextObject(const TextObject& other);
-        ~TextObject();
+        ~TextObject() override;
         
     public:
         void update() override;
         void render(sf::RenderWindow& window) override;
-        
-        void setPosition(sf::Vector2f position);
-        void setText(sf::String& newText, int size);
+
+        virtual void setPosition(sf::Vector2f position);
+        void setText(sf::String newText, int size);
         void setColor(sf::Color color);
+        sf::String getText() const;
         
 };
 
