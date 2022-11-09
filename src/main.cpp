@@ -1,3 +1,14 @@
+//
+// current state: really broken
+//last worked on: implementing attack, heal and return buttons (WIP)
+//      + implementing enemy behaviour(WIP)
+//
+//still missing for bare minimum:
+//        -enemy waves and respawn
+//        -initiative
+//        -scores and score file
+//
+//
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <random>
@@ -20,6 +31,7 @@ int main() {
     std::random_device rd;
     std::uniform_int_distribution<int> distLow(1,10);
     std::uniform_int_distribution<int> distHigh(30,40);
+    std::uniform_int_distribution<int> distET(0,2);
     //Start Main menu
     Scene scene1("scene01");
 
@@ -63,14 +75,7 @@ int main() {
 
         scene2.addGameObject(enemy);
 
-        //TextObject playerHp("playerHp", "PLAYER HP:"+ std::to_string(player.getHp()));
-        //playerHp.setPosition(sf::Vector2f(window.getSize().x, 10.0f));
-        //scene2.addGameObject(playerHp);
-
-        //TextObject playerTp("playerTp", "PLAYER TP:"+ std::to_string(player.getTp()));
-        //playerHp.setPosition(sf::Vector2f(1000.0f, 40.0f ));
-        //scene2.addGameObject(playerTp);
-
+        //HP %TP display
         TextObject enemyHp("enemyHp", "ENEMY HP:"+ std::to_string(enemy.getHp()));
         enemyHp.setPosition(sf::Vector2f(10.0f, 10.0f));
         scene2.addGameObject(enemyHp);
@@ -83,12 +88,27 @@ int main() {
         playerHp.setPosition(sf::Vector2f(window.getSize().x / 2, 10.0f));
         scene2.addGameObject(playerHp);
 
-
         TextObject enemyTp("enemyTp", "ENEMY TP:"+ std::to_string(enemy.getTp()));
         enemyTp.setPosition(sf::Vector2f(10.0f, 40.0f));
         scene2.addGameObject(enemyTp);
 
+        //Buttons
+        Button returnButton("exitButton2", "Return", &window, 200.0f, 100.0f, false);
+        returnButton.setPosition(sf::Vector2f(window.getSize().x / 2 + 100, (window.getSize().y - 200.0f) / 3 * 3));
+        returnButton.setText("Click Here", defaultCharSize);
+        scene2.addGameObject(returnButton);
 
+        Button attackButton("attackButton", "Attack", &window, 200.0f, 100.0f, false);
+        attackButton.setPosition(sf::Vector2f(window.getSize().x / 2 + 100, (window.getSize().y - 200.0f) / 3 * 1));
+        attackButton.setText("Click Here", defaultCharSize);
+        scene2.addGameObject(attackButton);
+
+        Button healButton("attackButton", "Heal", &window, 200.0f, 100.0f, false);
+        healButton.setPosition(sf::Vector2f(window.getSize().x / 2 + 100, (window.getSize().y - 200.0f) / 3 * 2));
+        healButton.setText("Click Here", defaultCharSize);
+        scene2.addGameObject(healButton);
+
+        //Infobox
         TextObject infoBox("Infobox", "Lorem ipsum dolor sit amet.");
         infoBox.setPosition(sf::Vector2f(window.getSize().x / 4, (window.getSize().y -10.0f)/ 8 * 7));
         scene2.addGameObject(infoBox);
@@ -116,40 +136,83 @@ int main() {
             }
             if (event.type == sf::Event::KeyReleased) {
 
-                if (event.key.code == sf::Keyboard::Escape){
+                if (event.key.code == sf::Keyboard::Escape) {
                     window.close();
                 }
 
-                if (event.key.code == sf::Keyboard::A){
-                    enemy.attack(player, distLow(rd));
-                    playerHp.setText("PLAYER HP:"+ std::to_string(player.getHp()),defaultCharSize);
+                if (event.key.code == sf::Keyboard::A) {
+                    player.attack(enemy, distLow(rd));
+                    infoBox.setText("You attack!", defaultCharSize);
 
                 }
-                if (event.key.code == sf::Keyboard::D){
-                    player.heal(enemy, distHigh(rd));
-                    playerHp.setText("PLAYER HP:"+ std::to_string(player.getHp()),defaultCharSize);
-                    playerTp.setText("PLAYER TP:"+ std::to_string(player.getTp()),defaultCharSize);
-                }
 
-                if (event.key.code == sf::Keyboard::S){
+                if (event.key.code == sf::Keyboard::S) {
                     player.getStats();
                 }
+            }
+            //Enemy actions
+            if (enemy.getTurn()){
+                enemy.randAct(player, distET(rd));
 
-                
+            }
+            if (enemy.getAction() == 1 ) {
+                playerHp.setText("PLAYER HP:"+ std::to_string(player.getHp()),defaultCharSize);
+
+            }
+            if (enemy.getAction() == 2 ) {
+
+                enemyHp.setText("ENEMY HP:"+ std::to_string(enemy.getHp()),defaultCharSize);
+                enemyTp.setText("ENEMY TP:"+ std::to_string(enemy.getTp()),defaultCharSize);
+            }
+
+            //Player actions
+            if(attackButton.isClicked() && player.getTurn()){
+                enemyHp.setText("ENEMY HP:"+ std::to_string(enemy.getHp()),defaultCharSize);
+            }
+
+            if(healButton.isClicked() && player.getTurn()){
+                playerHp.setText("PLAYER HP:"+ std::to_string(player.getHp()),defaultCharSize);
+                playerTp.setText("PLAYER TP:"+ std::to_string(player.getTp()),defaultCharSize);
+            }
+
+            if (returnButton.isClicked()){
+                handler.popScene();
+                playButton.setActivity(true);
+                exitButton.setActivity(true);
+                eraseButton.setActivity(true);
+                attackButton.setActivity(false);
+                healButton.setActivity(false);
+                returnButton.setActivity(false);
             }
 
             if (playButton.isClicked()){
                     handler.stackScene("scene02");
+                    playButton.setActivity(false);
+                    exitButton.setActivity(false);
+                    eraseButton.setActivity(false);
+                    attackButton.setActivity(true);
+                    healButton.setActivity(true);
+                    returnButton.setActivity(true);
+
+            }
+            if (eraseButton.isClicked()){
+                window.close();
+
             }
                 
             if (exitButton.isClicked()){
                     window.close();
             }
             if (player.getHp() == 0) {
-                window.close();
+                infoBox.setText("Game Over", 30);
+                attackButton.setActivity(false);
+                healButton.setActivity(false);
             }
             if (enemy.getHp() == 0) {
-
+                //enemy.setTurn() = false;
+                enemy.destroy();
+                infoBox.setText("Good Job! Continue?", defaultCharSize);
+                Entity enemy("enemy",(distHigh(rd) + 10),distHigh(rd),distLow(rd),distLow(rd));
             }
 
         }

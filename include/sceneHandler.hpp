@@ -18,4 +18,5 @@ class SceneHandler {
         void addScene(Scene& scene);
         void stackScene(std::string sceneName);
         void popScene();
+
 };

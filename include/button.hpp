@@ -37,6 +37,7 @@ class Button : public TextObject {
         void setPosition(sf::Vector2f position) override;
         bool isHovering();
         bool isClicked();
+        void setActivity(bool activity);
 
 
 

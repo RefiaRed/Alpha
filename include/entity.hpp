@@ -10,6 +10,7 @@ private:
     int hp;
     int tp;
     bool itsTurn = false;
+    int action;
 
     //Enemy extra
     enum Action {waits, attacks, heals};
@@ -26,13 +27,17 @@ public:
     int getAtk() const;
     int getDef() const;
     int getMaxHp() const;
+    bool getTurn();
+    int getAction();
 
     void setHp(int newHp);
     void attack(Entity &target, int rdLow);
     void heal(Entity &target, int rdHigh);
-    void randAct(Entity &target,int a, int rdLow);
+    void randAct(Entity &target, int rdLow);
     void waitTurn(Entity &target);
     void endTurn(Entity &next);
+    void destroy();
+
 
 };
 

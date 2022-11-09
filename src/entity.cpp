@@ -73,9 +73,9 @@ void Entity::heal(Entity &target, int rdHigh) {
     endTurn(target);
 }
 
-void Entity::randAct(Entity &target,int a, int rdLow) {
+void Entity::randAct(Entity &target, int rdLow) {
 
-    switch (a){
+    switch (action){
         case waits:
             waitTurn(target);
         break;
@@ -95,6 +95,20 @@ void Entity::randAct(Entity &target,int a, int rdLow) {
 void Entity::endTurn(Entity &next) {
     itsTurn = false;
     next.itsTurn = true;
+}
+
+bool Entity::getTurn() {
+    return itsTurn;
+
+}
+
+int Entity::getAction() {
+    return action;
+}
+
+void Entity::destroy() {
+    this->~Entity();
+
 }
 
 

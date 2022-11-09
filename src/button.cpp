@@ -2,7 +2,7 @@
 
 Button::Button(std::string identifier,sf::String buttonString, sf::RenderWindow* window, float width, float height, bool active) : TextObject(identifier, buttonString)
 {
-    isActive = active;
+    this->isActive = active;
 
     this->window = window;
     this->buttonString = buttonString;
@@ -77,5 +77,9 @@ bool Button::isHovering() {
 
 bool Button::isClicked() {
     return isHovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left);
+}
+
+void Button::setActivity(bool activity) {
+     isActive = activity;
 }
 
