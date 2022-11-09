@@ -40,11 +40,11 @@ void Button::update(){
     if (isHovering()){
          text.setColor(sf::Color::Cyan);
          rect.setFillColor(boxColorHov);
-     }
-     else{
+    }
+    else{
          text.setColor(sf::Color::White);
         rect.setFillColor(boxColor);   
-     }
+    }
 
      text;
 
